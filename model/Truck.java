@@ -1,9 +1,19 @@
 package model;
 
+import util.Validator;
+
 import java.time.LocalDate;
 
 public class Truck extends Vehicle implements HasAxleCount {
     private int axleCount;
+
+    private static int truckCount = 0;
+    private static double fuelConsumption = 0.0;
+    private static double maintenanceCost = 0.0;
+
+    public Truck() {
+    }
+
     public Truck(String carPlate, double carryingCapacity, LocalDate lastMaintenance) {
         super(carPlate, carryingCapacity, lastMaintenance);
     }
@@ -15,25 +25,26 @@ public class Truck extends Vehicle implements HasAxleCount {
 
     @Override
     public void setAxleCount(int axleCount) throws IllegalArgumentException {
-        if(axleCount < 0) {
-            throw new IllegalArgumentException("Axle Count cannot be negative.");
-        }
+        Validator.validateNegatives(axleCount);
         this.axleCount=axleCount;
     }
 
     @Override
     public double getFuelConsumption() {
-        return 15.0;
+        return fuelConsumption;
     }
 
     @Override
     public double getMaintenanceCost() {
-        return 1000.0;
+        return maintenanceCost;
     }
 
-    @Override
-    public String getPlate() {
-        return this.carPlate;
+    public void setFuelConsumption(double fuelConsumption){
+        Truck.fuelConsumption = fuelConsumption;
+    }
+
+    public void setMaintenanceCost(double maintenanceCost){
+        Truck.maintenanceCost = maintenanceCost;
     }
 
     @Override
